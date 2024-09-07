@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PII Redactor</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(
+          150deg,
+          #00d4ff,
+          #000000,
+          #000000,
+          #000000,
+          #00d4ff
+        );
+
+        color: #e0e0e0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .header {
+        width: 100%;
+        text-align: center;
+        margin-top: 1%;
+        margin-bottom: 40px;
+      }
+      .header img {
+        height: 250px;
+        width: 500px;
+      }
+      .header h2 {
+        color: #fff;
+        font-size: 80px;
+        margin: 0;
+      }
+      .header h3 {
+        color: #00d4ff;
+        font-size: 60px;
+        margin: 0;
+      }
+
+      .container {
+        background-color: #16213e;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        max-width: 100%;
+        width: 400px;
+      }
+
+      h1 {
+        font-size: 30px;
+        color: #00d4ff;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 12px;
+        color: rgb(199, 19, 19);
+      }
+
+      input[type="file"] {
+        display: block;
+        margin: 20px auto;
+        padding: 10px;
+        font-size: 16px;
+        border: 2px dashed #00d4ff;
+        border-radius: 5px;
+        background-color: #0f3460;
+        color: #e0e0e0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        max-width: 100%;
+      }
+
+      input[type="file"]:hover {
+        background-color: #1a1a2e;
+        border-color: #00b7e7;
+      }
+
+      #checkbox-container {
+        text-align: left;
+        margin-top: 20px;
+      }
+
+      label {
+        font-size: 16px;
+        color: #bfbfbf;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      input[type="checkbox"] {
+        margin-right: 10px;
+      }
+
+      button {
+        background-color: #00d4ff;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      button:hover {
+        background-color: #00b7e7;
+      }
+
+      button:active {
+        background-color: #009fbf;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 20px;
+          width: 100%;
+        }
+
+        h1 {
+          font-size: 20px;
+        }
+
+        input[type="file"] {
+          font-size: 14px;
+          padding: 8px;
+        }
+
+        button {
+          padding: 8px 15px;
+          font-size: 14px;
+        }
+
+        label {
+          font-size: 14px;
+        }
+
+        .header h2 {
+          font-size: 24px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        h1 {
+          font-size: 18px;
+        }
+
+        input[type="file"] {
+          font-size: 12px;
+          padding: 6px;
+        }
+
+        button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+
+        label {
+          font-size: 12px;
+        }
+
+        .header h2 {
+          font-size: 20px;
+        }
+      }
+      @media (max-width: 822px) {
+        .header img {
+          height: 250px;
+          width: 500px;
+        }
+        .header h2 {
+          color: #fff;
+          font-size: 60px;
+          margin: 0;
+        }
+        .header h3 {
+          color: #00d4ff;
+          font-size: 40px;
+          margin: 0;
+        }
+      }
+      @media (max-width: 600px) {
+        .header img {
+          height: 200px;
+          width: 300px;
+          margin: auto;
+        }
+        .header h2 {
+          color: #fff;
+          font-size: 40px;
+          margin: auto;
+        }
+        .header h3 {
+          color: #00d4ff;
+          font-size: 25px;
+          margin: auto;
+        }
+      }
+      @media (max-width: 500px) {
+        p {
+          font-size: 10px;
+          color: rgb(199, 19, 19);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <img src="kprlogo.png" alt="" />
+      <h2>Secure Hashers</h2>
+      <h3>Prototype</h3>
+    </div>
+    <div class="container">
+      <h1>PII Redactor</h1>
+      <p>Note: This is a Prototype.Only for checking Aadhar card and PDF.</p>
+      <input type="file" id="file-input" onchange="onFileChange()" />
+      <div id="checkbox-container" style="display: none">
+        <label
+          ><input type="checkbox" id="blur_aadhaar" /> Blur Aadhaar
+          Number</label
+        ><br />
+        <label><input type="checkbox" id="blur_name" /> Blur Name</label><br />
+        <label><input type="checkbox" id="blur_dob" /> Blur DOB</label>
+      </div>
+      <button onclick="uploadFile()">Upload File</button>
+    </div>
+    <script>
+      function onFileChange() {
+        const fileInput = document.getElementById("file-input");
+        const file = fileInput.files[0];
+        const checkboxContainer = document.getElementById("checkbox-container");
+
+        if (file && file.type.startsWith("image/")) {
+          checkboxContainer.style.display = "block";
+        } else {
+          checkboxContainer.style.display = "none";
+        }
+      }
+
+      async function uploadFile() {
+        const fileInput = document.getElementById("file-input");
+        const file = fileInput.files[0];
+        if (!file) {
+          alert("Please select a file.");
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        // Only add checkbox values if the file is an image
+        if (file.type.startsWith("image/")) {
+          formData.append(
+            "blur_aadhaar",
+            document.getElementById("blur_aadhaar").checked
+          );
+          formData.append(
+            "blur_name",
+            document.getElementById("blur_name").checked
+          );
+          formData.append(
+            "blur_dob",
+            document.getElementById("blur_dob").checked
+          );
+        }
+
+        try {
+          const response = await fetch("http://127.0.0.1:5000/upload", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+
+          const piiDetected = response.headers.get("PII-Detected") === "true";
+          if (piiDetected) {
+            const proceed = confirm("PII detected! Do you want to remove it?");
+            if (!proceed) {
+              // Save the original file if the user decides not to remove PII
+              const blob = await response.blob();
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = "processed_" + file.name; // Downloaded file name
+              document.body.appendChild(a); // Required for Firefox
+              a.click();
+              a.remove();
+            }
+            // If proceed is true, the file has already been processed with PII removed
+          } else {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "processed_" + file.name; // Downloaded file name
+            document.body.appendChild(a); // Required for Firefox
+            a.click();
+            a.remove();
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error uploading file: " + error.message);
+        }
+      }
+    </script>
+  </body>
+</html>
