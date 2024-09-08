@@ -1,0 +1,11 @@
+Flask
+Flask-CORS
+Pillow
+pytesseract
+pdfplumber
+python-docx
+opencv-python
+numpy
+presidio-analyzer
+presidio-anonymizer
+reportlab
