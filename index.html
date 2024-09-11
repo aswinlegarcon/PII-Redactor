@@ -277,10 +277,13 @@
         }
 
         try {
-          const response = await fetch("http://127.0.0.1:5000/upload", {
-            method: "POST",
-            body: formData,
-          });
+          const response = await fetch(
+            "https://18a9878a-13bf-44ac-a849-8f0844fb8291-00-1ygbjc1n3v90v.pike.replit.dev:8080/upload",
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
 
           if (!response.ok) {
             throw new Error("Network response was not ok");

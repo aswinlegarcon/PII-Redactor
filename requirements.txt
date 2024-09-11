@@ -9,3 +9,4 @@ numpy
 presidio-analyzer
 presidio-anonymizer
 reportlab
+fpdf
