@@ -10,7 +10,7 @@ from docx import Document
 from presidio_analyzer import AnalyzerEngine, RecognizerResult
 from presidio_anonymizer import AnonymizerEngine
 from fpdf import FPDF
-import numpy as np
+
 
 # Initialize Presidio engines
 analyzer = AnalyzerEngine()
@@ -32,7 +32,7 @@ def blur_region(image, coordinates):
     return image
 
 def process_image(file_path, blur_aadhaar, blur_name, blur_dob):
-    """Process the image to blur selected PII regions."""
+    """Process the image to blur selected PII regions and save as PNG."""
     image = cv2.imread(file_path)
 
     if image is None:
@@ -45,9 +45,16 @@ def process_image(file_path, blur_aadhaar, blur_name, blur_dob):
     if blur_dob == 1:
         image = blur_region(image, COORDINATES['DOB'])
 
-    output_file = "processed_" + os.path.basename(file_path)
-    cv2.imwrite(output_file, image)
-    return output_file
+    # Force saving the image as PNG
+    output_file = "processed_" + os.path.splitext(os.path.basename(file_path))[0] + ".png"
+    output_file_path = os.path.join(os.getcwd(), output_file)
+
+    # Save the image as PNG
+    cv2.imwrite(output_file_path, image, [cv2.IMWRITE_PNG_COMPRESSION, 9])
+
+    print(f"Processed image saved at: {output_file_path}")
+    return output_file_path
+
 
 def process_text(text):
     """Remove PII from the text using Presidio."""
