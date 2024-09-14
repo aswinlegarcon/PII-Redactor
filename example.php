@@ -31,7 +31,8 @@
       </div>
       <button type="submit">Upload File</button>
     </form>
-
+    <a href="processed_output.docx" download="image-name" target="_blank" class="download-button">
+       <button type="submit">Download File</button></a>
     <script>
       function onFileChange() {
         const fileInput = document.getElementById("file-input");

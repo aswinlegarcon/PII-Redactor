@@ -33,17 +33,17 @@
 
             // Prepare the Python command
             $command = "bash -c 'source myenv/bin/activate && python3 main.py " . escapeshellarg($upload_path) . " " . intval($blur_aadhaar) . " " . intval($blur_name) . " " . intval($blur_dob) . "'";
-            
+
             // Execute the Python script
             $output = shell_exec($command . " 2>&1");
 
             // Debug: Check the Python script output
             // echo "<pre>Python script output: $output</pre>";
 
-            // Extract the file path from the output
+            // Extract the file path from the output (improved regex for capturing file paths)
             $output_file = null;
-            if (preg_match('/Processed (image|text) saved as:\s*(\/[^\s]+)/', $output, $matches)) {
-                $output_file = $matches[2];  // Get the file path from the regex match
+            if (preg_match('/Processed (image|text) saved as:\s*(.+\.docx|.+\.pdf|.+\.png|.+\.jpg|.+\.jpeg)/', $output, $matches)) {
+                $output_file = trim($matches[2]);  // Get the file path from the regex match
                 // echo "<pre>Extracted file path: $output_file</pre>"; // Debugging line
             }
 

@@ -45,11 +45,11 @@ def process_image(file_path, blur_aadhaar, blur_name, blur_dob):
     if blur_dob == 1:
         image = blur_region(image, COORDINATES['DOB'])
 
-    # Force saving the image as PNG
-    output_file = "processed_" + os.path.splitext(os.path.basename(file_path))[0] + ".png"
+    # Save the image as PNG with "processed_" prefix
+    input_filename = os.path.splitext(os.path.basename(file_path))[0]
+    output_file = f"processed_{input_filename}.png"
     output_file_path = os.path.join(os.getcwd(), output_file)
 
-    # Save the image as PNG
     cv2.imwrite(output_file_path, image, [cv2.IMWRITE_PNG_COMPRESSION, 9])
 
     print(f"Processed image saved at: {output_file_path}")
@@ -89,10 +89,10 @@ def process_text(text):
 
     return redacted_text
 
-def save_processed_file(text, output_format):
-    """Save the processed text into a file."""
-    output_buffer = io.BytesIO()
-
+def save_processed_file(text, file_path, output_format):
+    """Save the processed text into a file with the same naming convention."""
+    input_filename = os.path.splitext(os.path.basename(file_path))[0]
+    
     if output_format == 'pdf':
         pdf = FPDF()
         pdf.add_page()
@@ -100,16 +100,18 @@ def save_processed_file(text, output_format):
         pdf.set_font("Arial", size=12)
         for line in text.splitlines():
             pdf.multi_cell(0, 10, line)
-        output_file = 'processed_output.pdf'
+        output_file = f'processed_{input_filename}.pdf'
         pdf.output(output_file)
+        print(f"Processed PDF saved at: {output_file}")
         return output_file
 
     elif output_format == 'docx':
         doc = Document()
         for line in text.splitlines():
             doc.add_paragraph(line)
-        output_file = 'processed_output.docx'
+        output_file = f'processed_{input_filename}.docx'
         doc.save(output_file)
+        print(f"Processed DOCX saved at: {output_file}")
         return output_file
 
     return None
@@ -164,7 +166,7 @@ def main():
         # Process text-based files
         text, output_format = process_file(file_path)
         redacted_text = process_text(text)
-        output_file = save_processed_file(redacted_text, output_format)
+        output_file = save_processed_file(redacted_text, file_path, output_format)
         print(f"Processed text saved as: {output_file}")
     else:
         print(f"Unsupported file format: {file_ext}")
