@@ -1,0 +1,293 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+}
+
+/* Logo container at the top center */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  flex-wrap: wrap; /* Allow logos to wrap to the next line */
+}
+
+.logo-container img {
+  height: 100px;
+  margin: 0 10px;
+}
+
+/* Layout styles */
+.content {
+  display: flex;
+
+  padding: 100px;
+  min-height: 40vh;
+}
+
+.left-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  text-align: left;
+}
+
+.left-section h1 {
+  font-family: "Merriweather", serif;
+  font-size: 80px;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+}
+.left-section h2 {
+  font-family: "Merriweather", serif;
+  font-size: 30px;
+}
+.left-section span {
+  font-family: "Bree Serif", serif;
+  font-size: 80px;
+  font-weight: 800;
+}
+
+.button-group {
+  display: flex;
+  gap: 20px;
+}
+.button-group button {
+  font-family: "Bree Serif", serif;
+}
+.left-section button {
+  padding: 15px 30px;
+  background-color: #00b4ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.left-section button:hover {
+  background-color: #0091cc;
+}
+
+.right-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+
+/* File uploader styles */
+.upload-section {
+  background-color: black;
+  padding: 40px;
+  border: 8px solid #fff;
+  border-radius: 18px;
+  width: 80%;
+}
+
+.upload-section h2 {
+  color: #00b4ff;
+  font-size: 40px;
+  font-family: "Bree Serif", serif;
+}
+.upload-section p {
+  font-family: "Merriweather", serif;
+}
+.upload-section input[type="file"] {
+  margin-top: 15px;
+  padding: 12px;
+  border: 2px dashed #00b4ff;
+  border-radius: 8px;
+  background-color: #000;
+  color: #fff;
+  width: 80%;
+}
+
+.upload-section button {
+  margin-top: 20px;
+  padding: 5px 5px;
+  background-color: #00b4ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Bree Serif", serif;
+  font-size: 15px;
+}
+
+.upload-section button:hover {
+  background-color: #0091cc;
+}
+.download-section {
+  background-color: black;
+  padding: 40px;
+  border: 8px solid #fff;
+  border-radius: 18px;
+  width: 80%;
+}
+.download-section h2 {
+  color: #00b4ff;
+  font-size: 40px;
+  font-family: "Bree Serif", serif;
+}
+.download-section p {
+  font-family: "Merriweather", serif;
+}
+.download-section button {
+  margin-top: 20px;
+  padding: 5px 5px;
+  background-color: #00b4ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Bree Serif", serif;
+  font-size: 15px;
+}
+.download-section button:hover {
+  background-color: #0091cc;
+}
+/* General checkbox container */
+#checkbox-container {
+  margin-top: 20px;
+}
+
+#checkbox-container label {
+  font-family: "Bree Serif", serif;
+  font-size: 18px;
+  color: #fff !important; /* Change the color to match your site's palette */
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+#checkbox-container input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #333; /* Default border color */
+  border-radius: 4px; /* Rounded edges */
+  margin-right: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+#checkbox-container input[type="checkbox"]:checked {
+  background-color: #333; /* Checked box background color */
+  border-color: #333; /* Checked box border color */
+}
+
+#checkbox-container input[type="checkbox"]:checked::before {
+  content: "✔";
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  top: 2px;
+  left: 3px;
+}
+
+#checkbox-container input[type="checkbox"]:hover {
+  border-color: #00b4ff; /* Hover effect on checkbox */
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.2); /* Subtle shadow */
+}
+
+#checkbox-container label:hover {
+  color: #0091cc; /* Hover effect on label */
+}
+
+/* Style for the checkbox labels */
+#checkbox-container label {
+  font-family: "Merriweather", serif;
+  color: #444;
+  transition: color 0.3s ease;
+}
+
+/* Responsive checkbox area */
+@media (max-width: 768px) {
+  #checkbox-container label {
+    font-size: 16px;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 1500px) {
+  .left-section h1 {
+    font-size: 60px;
+  }
+  .left-section span {
+    font-size: 60px;
+  }
+  .left-section h2 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 1250px) {
+  .left-section h1 {
+    font-size: 50px;
+  }
+  .left-section span {
+    font-size: 50px;
+  }
+  .left-section h2 {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .left-section h1 {
+    font-size: 48px;
+    text-align: center;
+  }
+  .button-group {
+    flex-wrap: wrap;
+  }
+  .content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .right-section {
+    margin-top: 20px;
+  }
+
+  /* Stack logos vertically */
+  .logo-container img {
+    margin: 10px 0;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .content {
+    display: flex;
+
+    padding: 50px;
+    min-height: 40vh;
+  }
+  .left-section {
+    padding: 0px;
+  }
+  .left-section h1 {
+    font-size: 40px;
+    text-align: left;
+  }
+  .button-group {
+    flex-wrap: wrap;
+  }
+  .upload-section h2 {
+    font-size: 20px;
+  }
+
+  .upload-section input[type="file"],
+  .upload-section button {
+    width: 90%;
+  }
+}

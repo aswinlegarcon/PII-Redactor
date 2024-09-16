@@ -90,9 +90,8 @@ def process_text(text):
     return redacted_text
 
 def save_processed_file(text, file_path, output_format):
-    """Save the processed text into a file with the same naming convention."""
     input_filename = os.path.splitext(os.path.basename(file_path))[0]
-    
+
     if output_format == 'pdf':
         pdf = FPDF()
         pdf.add_page()
@@ -101,20 +100,23 @@ def save_processed_file(text, file_path, output_format):
         for line in text.splitlines():
             pdf.multi_cell(0, 10, line)
         output_file = f'processed_{input_filename}.pdf'
-        pdf.output(output_file)
-        print(f"Processed PDF saved at: {output_file}")
-        return output_file
+        output_path = os.path.join(os.getcwd(), output_file)  # Ensure the correct directory
+        pdf.output(output_path)
+        print(f"Processed PDF saved at: {output_path}")  # Debug print
+        return output_path  # Return full path instead of just the file name
 
     elif output_format == 'docx':
         doc = Document()
         for line in text.splitlines():
             doc.add_paragraph(line)
         output_file = f'processed_{input_filename}.docx'
-        doc.save(output_file)
-        print(f"Processed DOCX saved at: {output_file}")
-        return output_file
+        output_path = os.path.join(os.getcwd(), output_file)
+        doc.save(output_path)
+        print(f"Processed DOCX saved at: {output_path}")
+        return output_path
 
     return None
+
 
 def process_file(file_path):
     """Process the uploaded file and return the text content."""
